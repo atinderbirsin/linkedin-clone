@@ -1,9 +1,21 @@
 import './App.css';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 
 function App() {
   return (
     <div className="app">
-      <h1>Lets build a Linked In clone</h1>
+
+      {/* Header */}
+      <Header />
+
+      <div>
+        {/* <Sidebar /> */}
+      </div>
+      {/* App body */}
+        {/* Sidebar */}
+        {/* Feed */}
+        {/* Widgets */}
     </div>
   );
 }
