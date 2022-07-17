@@ -9,8 +9,11 @@ function App() {
       {/* Header */}
       <Header />
 
-      <div>
+      <div className="flex">
         {/* <Sidebar /> */}
+        <Sidebar />
+        <div  className='flex-6'></div>
+        <div className='flex-2'></div>
       </div>
       {/* App body */}
         {/* Sidebar */}
