@@ -17,7 +17,7 @@ function Sidebar() {
 
     return (
         <div className="flex flex-col flex-2">
-            <div className="flex flex-col items-center rounded-xl border border-gray-300 mb-2">
+            <div className="flex flex-col items-center rounded-xl border border-gray-300 mb-2 bg-white">
                 <img className="w-full h-14 rounded-t-xl -mb-15" src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="" />
                 <Avatar />
 
@@ -60,13 +60,13 @@ function Sidebar() {
                 <div className="w-full border-t">
                     <div className="flex cursor-pointer justify-between p-2 hover:bg-tint-black">
                         <div>
-                            <p className="text-sm flex items-center gap-1"><BookmarkIcon /> Try Premium for free</p>
+                            <p className="text-sm flex items-center gap-1"><BookmarkIcon />My items</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex flex-col items-center rounded-xl border border-gray-300 pt-3">
+            <div className="flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white">
                 <div className="w-full mb-2">
                     <div className="flex items-center justify-between px-2">
                         <div className="text-sm">Recent</div>
