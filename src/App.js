@@ -8,7 +8,7 @@ function App() {
     <div className="app">
       <Header />
 
-      <div className="flex bg-trans">
+      <div className="flex bg-trans-2">
         <Sidebar />
         <Feed />
         <div className='flex-2'></div>

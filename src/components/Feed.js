@@ -4,46 +4,81 @@ import ImageIcon from '@mui/icons-material/Image';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventIcon from '@mui/icons-material/Event';
 import ArticleIcon from '@mui/icons-material/Article';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { collection } from "firebase/firestore/lite";
+import { addDoc } from "firebase/firestore"; 
+import Post from "./Post";
+import { doc, onSnapshot } from "firebase/firestore";
+
 
 function Feed() {
     const onFormSubmit = e => {
         e.preventDefault();
+
+        try {
+             addDoc(collection(db, "posts", "SF"), {
+              name: "Atinderbir Singh",
+              description: "This is a test",
+              message: input,
+              photoUrl: '',
+              timeStamp: db.FieldValue.serverTimestamp(),
+            });
+          } catch (e) {
+            console.error("Error adding document: ", e);
+          }
     }
 
+    const [posts,setPosts] = useState([]);
+    const [input,setInput] = useState('');
+
+
+
     useEffect(() => {
-        async function getCities() {
-            const citiesCol = collection(db, 'cities');
-            const citySnapshot = await getDocs(citiesCol);
-            const cityList = citySnapshot.docs.map(doc => doc.data());
-            return cityList;
+        async function getPosts() {
+            onSnapshot(doc(db, "posts", "SF"), (doc) => {
+                setPosts({
+                    id: doc.id,
+                    data: doc.data(),
+                })
+            });
         }
 
-        getCities();
+        getPosts();
     },[])
 
 
     return (
-        <div className="flex-6 bg-white mx-3">
-            <div className="rounded-xl border border-gray-300">
+        <div className="flex-6 mx-3">
+            <div className="rounded-xl border border-gray-300 mb-4 bg-white">
                 <div className="flex items-center pt-3 px-3 pb-1 gap-2">
                     <Avatar />
                     <form className="w-full" onSubmit={onFormSubmit}>
-                        <input type="text" placeholder="Ask your network for advice" 
+                        <input type="text" value={input} onChange={(e) => (setInput(e.target.value))} placeholder="Ask your network for advice" 
                         className="w-full p-3 rounded-full border border-gray-400 cursor-pointer focus:outline-none hover:bg-tint-black"/>
                         <button type="submit" className="hidden">Submit</button>
                     </form>
                 </div>
 
-                <div className="flex pb-1 justify-evenly">
+                <div className="flex pb-1 px-3 justify-between">
                     <InputOption Icon={ImageIcon} color="#1976d2" title="Photo" />
                     <InputOption Icon={YouTubeIcon} color="#5f9b41" title="Video" />
                     <InputOption Icon={EventIcon} color="#c37d16" title="Event" />
                     <InputOption Icon={ArticleIcon} color="#e16745" title="Write article" />
                 </div>                
             </div>
+
+            {/* <Post name="Atinderbir Singh" description="This is a test" message="WOW This Worked!.."/> */}
+
+            <div>
+                {/* {posts.length} */}
+            </div>
+
+            {/* {(posts.length > 0) &&  posts.map(({id, name, description,message, photoUrl}) => {
+                return (
+                    <Post key={id} name={name} description={description} message={message} photoUrl={photoUrl}/> 
+                )
+            })} */}
         </div>
     )
 };

@@ -8,6 +8,7 @@ module.exports = {
         'blue-70': '#0a66c2',
         'tint-black': '#00000014',
         'trans': '#e5e7eb54',
+        'trans-2': '#dadce154',
       },
       flex: {
         2: '2',
