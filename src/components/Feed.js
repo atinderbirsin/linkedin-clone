@@ -4,26 +4,41 @@ import ImageIcon from '@mui/icons-material/Image';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventIcon from '@mui/icons-material/Event';
 import ArticleIcon from '@mui/icons-material/Article';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
-import { collection } from "firebase/firestore/lite";
-import { addDoc } from "firebase/firestore"; 
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { setDoc } from "firebase/firestore"; 
 import Post from "./Post";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc } from "firebase/firestore";
+import { serverTimestamp } from "firebase/firestore";
+
+
 
 
 function Feed() {
+    const ref = useRef();
+
+
     const onFormSubmit = e => {
         e.preventDefault();
 
         try {
-             addDoc(collection(db, "posts", "SF"), {
-              name: "Atinderbir Singh",
-              description: "This is a test",
-              message: input,
-              photoUrl: '',
-              timeStamp: db.FieldValue.serverTimestamp(),
-            });
+            const newCityRef = doc(collection(db, "posts"));
+
+            const data = {
+                name: "Atinderbir Singh",
+                description: "This is a test",
+                message: input,
+                photoUrl: '',
+                createdAt: serverTimestamp(),
+            }
+
+            const setData = async() => {
+                await setDoc(newCityRef, data);
+                setInput('');
+            };
+
+            setData();
           } catch (e) {
             console.error("Error adding document: ", e);
           }
@@ -31,21 +46,29 @@ function Feed() {
 
     const [posts,setPosts] = useState([]);
     const [input,setInput] = useState('');
+    const [isFixed,setIsFixed] = useState(false);
 
 
 
     useEffect(() => {
-        async function getPosts() {
-            onSnapshot(doc(db, "posts", "SF"), (doc) => {
-                setPosts({
-                    id: doc.id,
-                    data: doc.data(),
-                })
-            });
-        }
+        async function getCities() {
+            const citiesCol = collection(db, 'posts');
+            // const citySnapshot = await getDocs(citiesCol);
+            // const cityList = citySnapshot.docs.map(doc => doc.data());
+            const q = query(citiesCol, orderBy("createdAt", "desc"))
+            const a = await getDocs(q);
+            const b = a.docs.map(doc => doc.data());
+            setPosts(b)
+          }
+        getCities();
 
-        getPosts();
-    },[])
+        // window.onscroll = function() {
+        //     if(ref.current.offsetTop < 70){
+        //         setIsFixed(true);
+        //     }
+        // }
+
+    },[ref,input])
 
 
     return (
@@ -70,15 +93,14 @@ function Feed() {
 
             {/* <Post name="Atinderbir Singh" description="This is a test" message="WOW This Worked!.."/> */}
 
-            <div>
-                {/* {posts.length} */}
+            <div ref={ref}>
+                {(posts.length > 0) &&  posts.map(({createdAt, name, description,message, photoUrl}) => {
+                    return (
+                        <Post key={createdAt} name={name} description={description} message={message} photoUrl={photoUrl}/> 
+                    )
+                })}
             </div>
 
-            {/* {(posts.length > 0) &&  posts.map(({id, name, description,message, photoUrl}) => {
-                return (
-                    <Post key={id} name={name} description={description} message={message} photoUrl={photoUrl}/> 
-                )
-            })} */}
         </div>
     )
 };

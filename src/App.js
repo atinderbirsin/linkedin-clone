@@ -5,10 +5,10 @@ import Sidebar from './components/Sidebar';
 
 function App() {
   return (
-    <div className="app">
+    <div className="app h-full">
       <Header />
 
-      <div className="flex bg-trans-2">
+      <div className="flex bg-trans-2 h-full pt-5">
         <Sidebar />
         <Feed />
         <div className='flex-2'></div>

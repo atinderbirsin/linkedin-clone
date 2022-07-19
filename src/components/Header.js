@@ -35,7 +35,7 @@ const headerOptions = [
 
 function Header() {
     return (
-        <div className="sticky flex justify-evenly py-2 border-b border-b-logo-gray top-0 z-50">
+        <div className="sticky flex justify-evenly py-2 border-b border-b-logo-gray top-0 z-50 bg-white">
             <div className='flex items-center'>
                 <img className="object-contain h-10 mr-3" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="logo"/>
 
