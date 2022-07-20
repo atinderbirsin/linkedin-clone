@@ -4,8 +4,20 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AddIcon from '@mui/icons-material/Add';
+import { useRef, useEffect } from "react";
 
 function Sidebar() {
+
+    const ref = useRef();
+
+    useEffect(() => {
+        console.log(ref);
+       window.onscroll = () => {
+           console.log(ref.current.offsetHeight);
+        if(ref.current.offsetTop < 70){
+        }
+       };
+    },[])
 
     const sidebarOption = item => {
         return (
@@ -66,7 +78,7 @@ function Sidebar() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white">
+            <div className="flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white" ref={ref}>
                 <div className="w-full mb-2">
                     <div className="flex items-center justify-between px-2">
                         <div className="text-sm">Recent</div>

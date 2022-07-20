@@ -4,7 +4,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import EventIcon from '@mui/icons-material/Event';
 import ArticleIcon from '@mui/icons-material/Article';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { setDoc } from "firebase/firestore"; 
@@ -16,8 +16,6 @@ import { serverTimestamp } from "firebase/firestore";
 
 
 function Feed() {
-    const ref = useRef();
-
 
     const onFormSubmit = e => {
         e.preventDefault();
@@ -46,7 +44,6 @@ function Feed() {
 
     const [posts,setPosts] = useState([]);
     const [input,setInput] = useState('');
-    const [isFixed,setIsFixed] = useState(false);
 
 
 
@@ -68,7 +65,7 @@ function Feed() {
         //     }
         // }
 
-    },[ref,input])
+    },[input])
 
 
     return (
@@ -93,7 +90,7 @@ function Feed() {
 
             {/* <Post name="Atinderbir Singh" description="This is a test" message="WOW This Worked!.."/> */}
 
-            <div ref={ref}>
+            <div>
                 {(posts.length > 0) &&  posts.map(({createdAt, name, description,message, photoUrl}) => {
                     return (
                         <Post key={createdAt} name={name} description={description} message={message} photoUrl={photoUrl}/> 
