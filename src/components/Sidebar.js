@@ -4,20 +4,31 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AddIcon from '@mui/icons-material/Add';
-import { useRef, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Sidebar() {
 
-    const ref = useRef();
-
+    const [height,setHeight] = useState(window.scrollY);
+    const [isfixed,setIsFixed] = useState(false);
+    
     useEffect(() => {
-        console.log(ref);
-       window.onscroll = () => {
-           console.log(ref.current.offsetHeight);
-        if(ref.current.offsetTop < 70){
-        }
-       };
-    },[])
+        
+        const Event = () => {
+            setHeight(window.scrollY)
+            if(height > 438 ) {
+                setIsFixed(true);
+            }
+            if(height < 438) {
+                setIsFixed(false);
+            }
+        };
+
+        window.addEventListener('scroll',Event)
+
+       return () => {
+        window.removeEventListener('scroll',Event)
+       }
+    },[height])
 
     const sidebarOption = item => {
         return (
@@ -78,7 +89,7 @@ function Sidebar() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white" ref={ref}>
+            <div className={`flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white transition-[padding] duration-1000 ${isfixed ? 'fixed' : 'static'}`}>
                 <div className="w-full mb-2">
                     <div className="flex items-center justify-between px-2">
                         <div className="text-sm">Recent</div>
