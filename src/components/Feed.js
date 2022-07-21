@@ -30,10 +30,10 @@ function Feed() {
                 photoUrl: '',
                 createdAt: serverTimestamp(),
             }
+            setInput('');
 
             const setData = async() => {
                 await setDoc(newCityRef, data);
-                setInput('');
             };
 
             setData();
@@ -48,23 +48,14 @@ function Feed() {
 
 
     useEffect(() => {
-        async function getCities() {
-            const citiesCol = collection(db, 'posts');
-            // const citySnapshot = await getDocs(citiesCol);
-            // const cityList = citySnapshot.docs.map(doc => doc.data());
-            const q = query(citiesCol, orderBy("createdAt", "desc"))
-            const a = await getDocs(q);
-            const b = a.docs.map(doc => doc.data());
-            setPosts(b)
+        async function getPosts() {
+            const postsCol = collection(db, 'posts');
+            const queryOrder = query(postsCol, orderBy("createdAt", "desc"))
+            const Documents = await getDocs(queryOrder);
+            const posts = Documents.docs.map(doc => doc.data());
+            setPosts(posts)
           }
-        getCities();
-
-        // window.onscroll = function() {
-        //     if(ref.current.offsetTop < 70){
-        //         setIsFixed(true);
-        //     }
-        // }
-
+          getPosts();
     },[input])
 
 
@@ -87,8 +78,6 @@ function Feed() {
                     <InputOption Icon={ArticleIcon} color="#e16745" title="Write article" />
                 </div>                
             </div>
-
-            {/* <Post name="Atinderbir Singh" description="This is a test" message="WOW This Worked!.."/> */}
 
             <div>
                 {(posts.length > 0) &&  posts.map(({createdAt, name, description,message, photoUrl}) => {

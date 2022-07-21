@@ -4,21 +4,23 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AddIcon from '@mui/icons-material/Add';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function Sidebar() {
 
     const [height,setHeight] = useState(window.scrollY);
     const [isfixed,setIsFixed] = useState(false);
+    const ref = useRef();
     
     useEffect(() => {
+        const scrollHeight = ref.current.clientHeight;
         
         const Event = () => {
             setHeight(window.scrollY)
-            if(height > 438 ) {
+            if(height > scrollHeight ) {
                 setIsFixed(true);
             }
-            if(height < 438) {
+            if(height < scrollHeight) {
                 setIsFixed(false);
             }
         };
@@ -40,7 +42,7 @@ function Sidebar() {
 
     return (
         <div className="flex flex-col flex-2">
-            <div className="flex flex-col items-center rounded-xl border border-gray-300 mb-2 bg-white">
+            <div className="flex flex-col items-center rounded-xl border border-gray-300 mb-2 bg-white" ref={ref}>
                 <img className="w-full h-14 rounded-t-xl -mb-15" src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="" />
                 <Avatar />
 

@@ -7,7 +7,7 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 function Post({name,message,photoUrl,description,}) {
     return (
-        <div className="flex flex-col border border-gray-300 rounded-xl p-2 bg-white mb-3">
+        <div className="flex flex-col border border-gray-300 rounded-xl p-2 bg-white mb-3 transition-all duration-1000">
             <div className="flex p-2 items-center">
                 <div>
                     <Avatar src={photoUrl}/>
