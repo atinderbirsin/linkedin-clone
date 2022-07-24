@@ -8,6 +8,7 @@ module.exports = {
         'blue-70': '#0a66c2',
         'blue-80': '#004182',
         'tint-black': '#00000014',
+        'tint': '#00000099',
         'trans': '#e5e7eb54',
         'trans-2': '#dadce154',
       },

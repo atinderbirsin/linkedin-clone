@@ -5,6 +5,13 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
@@ -12,7 +19,12 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" index element={<Login />} />
+            <Route path="/sign-up" element={<Signup />} />
+          </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>
 );
