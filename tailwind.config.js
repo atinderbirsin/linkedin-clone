@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         'logo-gray': '#eef3f8',
         'blue-70': '#0a66c2',
+        'blue-80': '#004182',
         'tint-black': '#00000014',
         'trans': '#e5e7eb54',
         'trans-2': '#dadce154',
@@ -18,6 +19,9 @@ module.exports = {
         '-10': '-10px',
         '-15': '-16px',
       },
+      spacing: {
+        '-0.5': '2px',
+      }
     },
   },
   plugins: [],
