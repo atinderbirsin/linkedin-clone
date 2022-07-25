@@ -3,10 +3,20 @@ import { Link } from 'react-router-dom';
 import img from '../images/Logo.png';
 
 function Signup() {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const [isshow, SetIsShow] = useState(true);
+  const [isvalid, SetIsValid] = useState(true);
+
+  function onFormSubmit(e) {
+    e.preventDefault();
+
+    if(!email || !password) {
+      SetIsValid(false);
+    }else {
+      SetIsValid(true);
+    }
+  }
 
   return (
     <div className="h-screen bg-[#f3f2ef] flex flex-col">
@@ -20,15 +30,16 @@ function Signup() {
         </h1>
 
         <div className="p-6 py-10 w-96 shadow-xl mb-10 rounded-lg bg-white">
-          <form>
+          <form onSubmit={(e) => onFormSubmit(e)}>
             <div className="mb-6">
               <label className="text-sm text-tint">Email or Phone number</label>
               <input
                 className="border w-full border-black px-2 focus:outline-none rounded-[4px] h-8 text-sm mt-1"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
+              <p className='text-red-400 text-sm'>{isvalid ? '' : 'Please enter a valid email or mobile number'}</p>
             </div>
 
             <div className="mb-6 relative">
@@ -47,6 +58,7 @@ function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <p className='text-red-400 text-sm'>{isvalid ? '' : 'Please enter a password'}</p>
             </div>
           <p className="px-2 py-1 text-xs text-center mb-4">
             By clicking Agree & Join, you agree to the LinkedIn{' '}
@@ -66,6 +78,7 @@ function Signup() {
 
           <button
             type="submit"
+            onClick={(e) => onFormSubmit(e)}
             className="w-full bg-blue-70 hover:bg-blue-80 text-white py-3 rounded-full font-medium"
           >
             Agree & join
