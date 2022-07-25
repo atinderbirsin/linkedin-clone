@@ -7,17 +7,17 @@ import img from '../images/Logo.png';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isShow,SetIsShow] = useState('true');
-  const [isValid,SetIsValid] = useState(true);
+  const [isShow, SetIsShow] = useState('true');
+  const [isValid, SetIsValid] = useState(true);
 
   // bg-[#f3f2ef]
 
   function onFormSubmit(e) {
     e.preventDefault();
 
-    if(!email || !password){
+    if (!email || !password) {
       SetIsValid(false);
-    }else {
+    } else {
       SetIsValid(true);
     }
   }
@@ -45,14 +45,19 @@ function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <p className='text-red-500 text-sm'>{isValid ? '' : 'Please enter a valid email address'}</p>
+              <p className="text-red-500 text-sm">
+                {isValid ? '' : 'Please enter a valid email address'}
+              </p>
             </div>
 
             <div className="relative mb-2">
               <label className="absolute text-xs left-2 pt-1 z-50">
                 Password
               </label>
-              <label onClick={() => SetIsShow(!isShow)} className="absolute text-sm z-50 right-2 cursor-pointer mt-3 hover:bg-blue-100 px-2 rounded-xl text-blue-70 font-medium">
+              <label
+                onClick={() => SetIsShow(!isShow)}
+                className="absolute text-sm z-50 right-2 cursor-pointer mt-3 hover:bg-blue-100 px-2 rounded-xl text-blue-70 font-medium"
+              >
                 {isShow ? 'Show' : 'Hide'}
               </label>
               <input
@@ -61,15 +66,21 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <p className='text-red-500 text-sm'>{isValid ? '' : 'Please enter a password'}</p>
+              <p className="text-red-500 text-sm">
+                {isValid ? '' : 'Please enter a password'}
+              </p>
             </div>
-          <button className="text-blue-70 px-2 py-1 hover:bg-blue-100 rounded-xl font-medium mb-4">
-            Forgot Password
-          </button>
+            <button className="text-blue-70 px-2 py-1 hover:bg-blue-100 rounded-xl font-medium mb-4">
+              Forgot Password
+            </button>
 
-          <button type="submit" onClick={(e) => onFormSubmit(e)} className="w-full bg-blue-70 hover:bg-blue-80 text-white py-3 rounded-full font-medium">
-            Sign in
-          </button>
+            <button
+              type="submit"
+              onClick={(e) => onFormSubmit(e)}
+              className="w-full bg-blue-70 hover:bg-blue-80 text-white py-3 rounded-full font-medium"
+            >
+              Sign in
+            </button>
           </form>
         </div>
 
