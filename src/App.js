@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="app h-full">
     
-    {user ? <Login /> : (
+    {!user ? <Login /> : (
       <>
         <Header />
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import img from '../images/Logo.png';
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -9,19 +9,19 @@ function Signup() {
   const [isshow, SetIsShow] = useState(true);
   const [isvalid, SetIsValid] = useState(true);
 
-  function onFormSubmit(e) {
+    function onFormSubmit(e) {
     e.preventDefault();
-
-    if(!email || !password) {
+  
+    if (!email || !password) {
       SetIsValid(false);
-    }else {
+    } else {
       SetIsValid(true);
     }
-
+  
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in 
+        // Signed in
         const user = userCredential.user;
         console.log(user);
         // ...
@@ -54,7 +54,9 @@ function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <p className='text-red-400 text-sm'>{isvalid ? '' : 'Please enter a valid email or mobile number'}</p>
+              <p className="text-red-400 text-sm">
+                {isvalid ? '' : 'Please enter a valid email or mobile number'}
+              </p>
             </div>
 
             <div className="mb-6 relative">
@@ -65,40 +67,42 @@ function Signup() {
                 className="absolute right-2 top-8 cursor-pointer text-tint border-b border-b-transparent hover:border-b-tint"
                 onClick={() => SetIsShow(!isshow)}
               >
-                {isshow? 'Show' : "Hide"}
+                {isshow ? 'Show' : 'Hide'}
               </label>
               <input
                 className="border w-full border-black px-2 focus:outline-none rounded-[4px] h-8 text-sm mt-1"
-                type={isshow? 'password' : 'text'}
+                type={isshow ? 'password' : 'text'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <p className='text-red-400 text-sm'>{isvalid ? '' : 'Please enter a password'}</p>
+              <p className="text-red-400 text-sm">
+                {isvalid ? '' : 'Please enter a password'}
+              </p>
             </div>
-          <p className="px-2 py-1 text-xs text-center mb-4">
-            By clicking Agree & Join, you agree to the LinkedIn{' '}
-            <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
-              <Link to="/">User Agreement</Link>
-            </span>
-            ,{' '}
-            <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
-              <Link to="/">Privacy Policy</Link>
-            </span>
-            , and{' '}
-            <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
-              <Link to="/">Cookie Policy</Link>
-            </span>
-            .
-          </p>
+            <p className="px-2 py-1 text-xs text-center mb-4">
+              By clicking Agree & Join, you agree to the LinkedIn{' '}
+              <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
+                <Link to="/">User Agreement</Link>
+              </span>
+              ,{' '}
+              <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
+                <Link to="/">Privacy Policy</Link>
+              </span>
+              , and{' '}
+              <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">
+                <Link to="/">Cookie Policy</Link>
+              </span>
+              .
+            </p>
 
-          <button
-            type="submit"
-            onClick={(e) => onFormSubmit(e)}
-            className="w-full bg-blue-70 hover:bg-blue-80 text-white py-3 rounded-full font-medium"
-          >
-            Agree & join
-          </button>
-            </form>
+            <button
+              type="submit"
+              onClick={(e) => onFormSubmit(e)}
+              className="w-full bg-blue-70 hover:bg-blue-80 text-white py-3 rounded-full font-medium"
+            >
+              Agree & join
+            </button>
+          </form>
           <p className="text-center mt-5">
             Already on LinkedIn?{' '}
             <span className="text-blue-70 cursor-pointer font-medium">
