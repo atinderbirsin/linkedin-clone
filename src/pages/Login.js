@@ -6,6 +6,7 @@ import img from '../images/Logo.png';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux/es/exports';
 import { login } from '../features/user/userSlice';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -14,10 +15,11 @@ function Login() {
   const [isValid, SetIsValid] = useState(true);
   const [user, SetUser] = useState(null);
   const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   // bg-[#f3f2ef]
 
-  function onFormSubmit(e) {
+  async function onFormSubmit(e) {
     e.preventDefault();
 
     if (!email || !password) {
@@ -34,11 +36,10 @@ function Login() {
             SetUser(user);
             console.log(user);
 
-            dispatch(login({
-              email: user.email,
-              uid: user.uid,
-              emailVerified: user.emailVerified,
-            }))
+            dispatch(
+              login(user)
+            );
+            navigate("/", { replace: true });
             // console.log(user.email,password);
             // ...
           })
