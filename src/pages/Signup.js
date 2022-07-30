@@ -22,11 +22,11 @@ function Signup() {
       password
     ).catch((err) => {
       if (err) {
-        alert('Email already in user');
+        alert('Email already in use');
       }
     });
 
-    const updateName = await updateProfile(userCreated.user, {
+    await updateProfile(userCreated.user, {
       displayName: displayName,
     }).catch((err) => {
       alert(`${err.code} ${err.message}`);

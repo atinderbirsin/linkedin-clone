@@ -5,8 +5,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import { login, logout, selectUser } from './features/user/userSlice';
 import Login from './pages/Login';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase';
+import { onAuthStateChanged, getAuth } from 'firebase/auth';
 import { useEffect } from 'react';
 
 function App() {
@@ -14,6 +13,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(
