@@ -1,36 +1,63 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import img from '../images/Logo.png';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { login } from '../features/user/userSlice';
+import { auth } from '../firebase';
 
 function Signup() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isshow, SetIsShow] = useState(true);
   const [isvalid, SetIsValid] = useState(true);
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
-    function onFormSubmit(e) {
+  const createUser = async (email, password, displayName) => {
+    const userCreated = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+      .then((userAuth) => {
+        updateProfile(userAuth.user, {
+          displayName: displayName,
+        });
+      })
+      .catch((err) => {
+        if (err) {
+          alert('Email already in user');
+        }
+      });
+
+    if (userCreated) {
+      dispatch(
+        login({
+          email: userCreated.user.email,
+          displayname: userCreated.user.displayName,
+          uid: userCreated.user.uid,
+          emailVerified: userCreated.user.emailVerified,
+        })
+      );
+
+      return true;
+    }
+  };
+
+  async function onFormSubmit(e) {
     e.preventDefault();
-  
-    if (!email || !password) {
+
+    if (!name || !email || !password) {
       SetIsValid(false);
     } else {
       SetIsValid(true);
+      const userCreated = await createUser(email, password, name);
+      if (userCreated) {
+        navigate('/', { replace: true });
+      }
     }
-  
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
   }
 
   return (
@@ -46,6 +73,19 @@ function Signup() {
 
         <div className="p-6 py-10 w-96 shadow-xl mb-10 rounded-lg bg-white">
           <form onSubmit={(e) => onFormSubmit(e)}>
+            <div className="mb-6 relative">
+              <label className="text-sm text-tint">Name</label>
+              <input
+                className="border w-full border-black px-2 focus:outline-none rounded-[4px] h-8 text-sm mt-1"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <p className="text-red-400 text-sm">
+                {isvalid ? '' : 'Please enter a name'}
+              </p>
+            </div>
+
             <div className="mb-6">
               <label className="text-sm text-tint">Email or Phone number</label>
               <input
@@ -79,6 +119,7 @@ function Signup() {
                 {isvalid ? '' : 'Please enter a password'}
               </p>
             </div>
+
             <p className="px-2 py-1 text-xs text-center mb-4">
               By clicking Agree & Join, you agree to the LinkedIn{' '}
               <span className="text-blue-70 hover:border-b-blue-70 border-b border-b-transparent font-medium">

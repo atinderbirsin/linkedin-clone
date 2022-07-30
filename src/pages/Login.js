@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import App from '../App';
 import img from '../images/Logo.png';
-// import { Link } from "redux";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useDispatch } from 'react-redux/es/exports';
 import { login } from '../features/user/userSlice';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -15,7 +14,7 @@ function Login() {
   const [isValid, SetIsValid] = useState(true);
   const [user, SetUser] = useState(null);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   // bg-[#f3f2ef]
 
@@ -24,30 +23,25 @@ function Login() {
 
     if (!email || !password) {
       SetIsValid(false);
-      // console.log(email, password);
     } else {
       SetIsValid(true);
-      if (isValid) {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            SetUser(user);
-            console.log(user);
-
-            dispatch(
-              login(user)
-            );
-            navigate("/", { replace: true });
-            // console.log(user.email,password);
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          });
-      }
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential;
+          SetUser(user);
+          dispatch(
+            login({
+              email: user.email,
+              uid: user.uid,
+              displayName: user.displayName,
+              emailVerified: user.emailVerified,
+            })
+          );
+          navigate('/', { replace: true });
+        })
+        .catch((error) => {
+          alert(`${error.code} ${error.message}`);
+        });
     }
   }
 
