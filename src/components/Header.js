@@ -9,8 +9,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { Avatar } from '@mui/material';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { logout } from '../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../features/user/userSlice';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -41,6 +41,7 @@ function Header() {
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useDispatch();
   const ref = useRef();
+  const user = useSelector(selectUser);
 
   const onSignoutClick = () => {
     dispatch(logout());
@@ -55,8 +56,8 @@ function Header() {
     });
 
     return () => {
-        window.removeEventListener('click',() => {});
-    }
+      window.removeEventListener('click', () => {});
+    };
   }, [ref]);
 
   return (
@@ -69,7 +70,6 @@ function Header() {
         />
 
         <div className="flex pl-3 h-10 items-center bg-logo-gray rounded-sm">
-          {/* {header-icon} */}
           <SearchIcon />
           <input
             type="text"
@@ -116,9 +116,9 @@ function Header() {
                 className="!h-14 !w-14"
               />
               <div>
-                <h1 className="font-medium">Atinderbir Singh</h1>
+                <h1 className="font-medium">{user.displayName}</h1>
                 <p className="text-[15px]">
-                  Student at St. Soldier Technical Institute
+                  {user.email}
                 </p>
               </div>
             </div>

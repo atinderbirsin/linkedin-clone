@@ -60,7 +60,7 @@ function Feed() {
 
 
     return (
-        <div className="flex-6 mx-3">
+        <div className="mx-3">
             <div className="rounded-xl border border-gray-300 mb-4 bg-white">
                 <div className="flex items-center pt-3 px-3 pb-1 gap-2">
                     <Avatar />

@@ -5,15 +5,15 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import { login, logout, selectUser } from './features/user/userSlice';
 import Login from './pages/Login';
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
+import { auth } from './firebase';
 
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(
@@ -24,10 +24,12 @@ function App() {
             emailVerified: user.emailVerified,
           })
         );
-      } else {
-        dispatch(logout());
       }
     });
+
+    return () => {
+      dispatch(logout())
+    };
   }, [dispatch]);
 
   return (
@@ -38,10 +40,14 @@ function App() {
         <>
           <Header />
 
-          <div className="flex bg-trans-2 h-full pt-5">
-            <Sidebar />
-            <Feed />
-            <div className="flex-2"></div>
+          <div className="w-full bg-trans-2">
+            <div className="flex h-full pt-5 align-center justify-center">
+              <div className="flex">
+                <Sidebar />
+                <Feed />
+                <div></div>
+              </div>
+            </div>
           </div>
           {/* App body */}
           {/* Sidebar */}

@@ -25,24 +25,25 @@ function Login() {
       SetIsValid(false);
     } else {
       SetIsValid(true);
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential;
-          SetUser(user);
-          dispatch(
-            login({
-              email: user.email,
-              uid: user.uid,
-              displayName: user.displayName,
-              emailVerified: user.emailVerified,
-            })
-          );
-          navigate('/', { replace: true });
-        })
-        .catch((error) => {
-          alert(`${error.code} ${error.message}`);
-        });
+      await signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            SetUser(user);
+            dispatch(
+              login({
+                email: user.email,
+                uid: user.uid,
+                displayName: user.displayName,
+                emailVerified: user.emailVerified,
+              })
+            );
+            navigate('/', { replace: true });
+          })
+          .catch((error) => {
+            alert(`${error.code} ${error.message}`);
+          });
     }
+
   }
 
   return (

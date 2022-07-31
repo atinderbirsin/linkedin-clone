@@ -41,7 +41,7 @@ function Sidebar() {
     }
 
     return (
-        <div className="flex flex-col flex-2">
+        <div className="flex flex-col">
             <div className="flex flex-col items-center rounded-xl border border-gray-300 mb-2 bg-white" ref={ref}>
                 <img className="w-full h-14 rounded-t-xl -mb-15" src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="" />
                 <Avatar />
@@ -91,7 +91,7 @@ function Sidebar() {
                 </div>
             </div>
 
-            <div className={`flex flex-col items-center rounded-xl border border-gray-300 pt-3 bg-white transition-[padding] duration-1000 ${isfixed ? 'fixed' : 'static'}`}>
+            <div className={`flex flex-col items-center rounded-xl w-[253px] border border-gray-300 pt-3 bg-white transition-[padding] duration-1000 ${isfixed ? 'fixed' : 'static'}`}>
                 <div className="w-full mb-2">
                     <div className="flex items-center justify-between px-2">
                         <div className="text-sm">Recent</div>
