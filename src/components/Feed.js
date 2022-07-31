@@ -11,11 +11,15 @@ import { setDoc } from "firebase/firestore";
 import Post from "./Post";
 import { doc } from "firebase/firestore";
 import { serverTimestamp } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/user/userSlice";
 
 
 
 
 function Feed() {
+
+    const user = useSelector(selectUser);
 
     const onFormSubmit = e => {
         e.preventDefault();
@@ -24,8 +28,8 @@ function Feed() {
             const newCityRef = doc(collection(db, "posts"));
 
             const data = {
-                name: "Atinderbir Singh",
-                description: "This is a test",
+                name: user.displayName,
+                description: "",
                 message: input,
                 photoUrl: '',
                 createdAt: serverTimestamp(),

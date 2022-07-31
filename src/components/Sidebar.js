@@ -5,12 +5,15 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import GroupsIcon from '@mui/icons-material/Groups';
 import AddIcon from '@mui/icons-material/Add';
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/user/userSlice";
 
 function Sidebar() {
 
     const [height,setHeight] = useState(window.scrollY);
     const [isfixed,setIsFixed] = useState(false);
     const ref = useRef();
+    const user = useSelector(selectUser);
     
     useEffect(() => {
         const scrollHeight = ref.current.clientHeight;
@@ -46,8 +49,8 @@ function Sidebar() {
                 <img className="w-full h-14 rounded-t-xl -mb-15" src="https://images.unsplash.com/photo-1569982175971-d92b01cf8694?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="" />
                 <Avatar />
 
-                <div className="text-center p-2 mb-2">
-                    <p className="mt-4 cursor-pointer border-b border-b-transparent hover:border-black font-semibold pb-0">Atinderbir Singh</p>
+                <div className="text-center w-full p-2 mb-2">
+                    <p className="mt-4  cursor-pointer border-b border-b-transparent hover:border-black font-semibold pb-0">{user.displayName}</p>
 
                     <p className="text-sm font-light text-gray-500">Student at saint soldier technical institute</p>
                 </div>

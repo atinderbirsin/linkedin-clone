@@ -33,7 +33,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="app h-full">
+    <div className="h-full">
       {!user ? (
         <Login />
       ) : (
