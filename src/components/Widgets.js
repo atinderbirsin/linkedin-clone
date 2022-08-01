@@ -29,9 +29,9 @@ const news = [
     },
 ]
 
-const singleNews = news.map(n => {
+const singleNews = news.map((n,i) => {
     return (
-        <li className='pl-3 cursor-pointer hover:bg-tint-black text-gray-500'>
+        <li className='pl-3 cursor-pointer hover:bg-tint-black text-gray-500' key={i}>
             <h2 className='text-gray-900 font-semibold text-[15px]'><FiberManualRecordIcon className='!text-[12px] !fill-gray-500'/> {n.title}</h2>
             <p className='text-[11px]'>{n.time} <FiberManualRecordIcon className='!text-[5px]'/> {n.readers}</p>
         </li>

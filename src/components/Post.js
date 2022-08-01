@@ -4,10 +4,11 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import { forwardRef } from "react";
 
-function Post({name,message,photoUrl,description,}) {
+const Post = forwardRef(({name,message,photoUrl,description,},ref) => {
     return (
-        <div className="flex flex-col border border-gray-300 rounded-xl p-2 bg-white mb-3 transition-all duration-1000">
+        <div ref={ref} className="flex flex-col border border-gray-300 rounded-xl p-2 bg-white mb-3 transition-all duration-1000">
             <div className="flex p-2 items-center">
                 <div>
                     <Avatar src={photoUrl}/>
@@ -30,6 +31,6 @@ function Post({name,message,photoUrl,description,}) {
             </div>
         </div>
     )
-};
+});
 
 export default Post;
