@@ -14,7 +14,9 @@ module.exports = {
       },
       flex: {
         2: '2',
+        3: '3',
         6: '6',
+        8: '8',
       },
       margin: {
         '-10': '-10px',
@@ -22,6 +24,7 @@ module.exports = {
       },
       spacing: {
         '-0.5': '2px',
+        '--8': '-32px',
       }
     },
   },

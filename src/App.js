@@ -29,7 +29,7 @@ function App() {
     });
 
     return () => {
-      dispatch(logout())
+      dispatch(logout());
     };
   }, [dispatch]);
 
@@ -42,18 +42,14 @@ function App() {
           <Header />
 
           <div className="w-full bg-trans-2">
-            <div className="flex h-full pt-5 align-center justify-center">
-              <div className="flex">
-                <Sidebar />
-                <Feed />
-                <Widgets />
+            <div className="flex h-full pt-5 justify-center">
+              <div className="flex w-10/12 justify-center">
+                <Sidebar  />
+                <Feed  />
+                <Widgets  />
               </div>
             </div>
           </div>
-          {/* App body */}
-          {/* Sidebar */}
-          {/* Feed */}
-          {/* Widgets */}
         </>
       )}
     </div>

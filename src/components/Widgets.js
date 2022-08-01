@@ -1,7 +1,7 @@
 import GroupsIcon from '@mui/icons-material/Groups';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AddIcon from '@mui/icons-material/Add';
-
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const sidebarOption = item => {
     return (
@@ -39,6 +39,15 @@ const news = [
     },
 ]
 
+const singleNews = news.map(n => {
+    return (
+        <li className='pl-3 cursor-pointer hover:bg-tint-black text-gray-500'>
+            <h2 className='text-gray-900 font-semibold text-[15px]'><FiberManualRecordIcon className='!text-[12px] !fill-gray-500'/> {n.title}</h2>
+            <p className='text-[11px]'>{n.time} <FiberManualRecordIcon className='!text-[5px]'/> {n.readers}</p>
+        </li>
+    )
+})
+
 function Widgets() {
     return (
         <div>
@@ -49,45 +58,19 @@ function Widgets() {
                         <div className="cursor-pointer opacity-0 hover:opacity-100 hover:bg-gray-300 hover:rounded-full"><KeyboardArrowDownIcon /></div>
                     </div>
 
-                    {/* <div className="mb-4">
-                        {sidebarOption("javascript")}
-                        {sidebarOption("The Spark Foundation Network")}
-                        {sidebarOption("The Frontend Developer Group")}
-                    </div> */}
+                </div>
+                <div className='mb-3'>
+                    <ul>
+                            {singleNews}
+                    </ul>
                 </div>
 
-                <div className='w-full'>
 
-                </div>
-
-                {/* <div className="w-full">
-                    <div className="flex items-center justify-between px-2">
-                        <div className="text-sm text-blue-70 font-medium">Groups</div>
-                        <div className="cursor-pointer opacity-0 hover:opacity-100 hover:bg-gray-300 hover:rounded-full"><KeyboardArrowDownIcon /></div>
-                    </div>
-
-                    <div className="mb-4">
-                        {sidebarOption("javascript")}
-                        {sidebarOption("The Spark Foundation Network")}
-                        {sidebarOption("The Frontend Developer Group")}
-                        {sidebarOption("See all")}
-                    </div>
-                </div> */}
-
-                <div className="w-full">
-                    {/* <div className="flex items-center justify-between px-2 mb-2">
-                        <div className="text-sm text-blue-70 font-medium hover:border-b hover:border-blue-70">Events</div>
-                        <div className="cursor-pointer opacity-0 hover:opacity-100 hover:bg-gray-300 hover:rounded-full"><AddIcon /></div>
-                    </div> */}
-
+                <div className="w-full pl-2">
                     <div className="flex items-center justify-between px-2 mb-2">
-                        <div className="text-sm text-tint cursor-pointer font-medium ">Show more <KeyboardArrowDownIcon /></div>
+                        <div className="text-sm text-tint cursor-pointer font-medium hover:bg-tint-black pl-1 p-0.5 rounded-md">Show more <KeyboardArrowDownIcon /></div>
                     </div>
                 </div>
-
-                {/* <div className="w-full border-t flex items-center justify-center p-3 cursor-pointer"> */}
-                    {/* <p className="text-sm font-semibold text-gray-500">Show more</p> */}
-                {/* </div> */}
             </div>
         </div>
     )
