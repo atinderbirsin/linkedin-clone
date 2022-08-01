@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { auth } from './firebase';
+import Widgets from './components/Widgets';
 
 function App() {
   const user = useSelector(selectUser);
@@ -45,7 +46,7 @@ function App() {
               <div className="flex">
                 <Sidebar />
                 <Feed />
-                <div></div>
+                <Widgets />
               </div>
             </div>
           </div>
