@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { login } from '../features/user/userSlice';
 import { auth } from '../firebase';
+import { Loader } from '../components/Loader';
 
 function Signup() {
   const [name, setName] = useState('');
@@ -14,8 +15,10 @@ function Signup() {
   const [isvalid, SetIsValid] = useState(true);
   const dispatch = useDispatch();
   let navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
 
   const createUser = async (email, password, displayName) => {
+    setLoading(true);
     const userCreated = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -40,7 +43,8 @@ function Signup() {
           uid: userCreated.user.uid,
           emailVerified: userCreated.user.emailVerified,
         })
-      );
+        );
+        setLoading(false);
 
       return true;
     }
@@ -62,6 +66,7 @@ function Signup() {
 
   return (
     <div className="h-screen bg-[#f3f2ef] flex flex-col">
+      {loading ? <Loader /> : null}
       <div className="px-14 py-8 justify-start">
         <img className="h-8" src={img} alt="logo" />
       </div>

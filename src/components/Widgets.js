@@ -1,15 +1,5 @@
-import GroupsIcon from '@mui/icons-material/Groups';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import AddIcon from '@mui/icons-material/Add';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-
-const sidebarOption = item => {
-    return (
-        <div className="text-xs text-gray-500 cursor-pointer flex px-2 items-center gap-2 hover:bg-tint-black hover:text-black">
-            <GroupsIcon />  {item}
-        </div>
-    )
-}
 
 const news = [
     {

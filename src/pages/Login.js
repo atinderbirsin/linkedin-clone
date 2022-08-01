@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux/es/exports';
 import { login } from '../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase';
+import { Loader } from '../components/Loader';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -15,8 +16,8 @@ function Login() {
   const [user, SetUser] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  // bg-[#f3f2ef]
 
   async function onFormSubmit(e) {
     e.preventDefault();
@@ -24,30 +25,33 @@ function Login() {
     if (!email || !password) {
       SetIsValid(false);
     } else {
+      setLoading(true);
       SetIsValid(true);
       await signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            SetUser(user);
-            dispatch(
-              login({
-                email: user.email,
-                uid: user.uid,
-                displayName: user.displayName,
-                emailVerified: user.emailVerified,
-              })
-            );
-            navigate('/', { replace: true });
-          })
-          .catch((error) => {
-            alert(`${error.code} ${error.message}`);
-          });
+        .then((userCredential) => {
+          const user = userCredential.user;
+          SetUser(user);
+          dispatch(
+            login({
+              email: user.email,
+              uid: user.uid,
+              displayName: user.displayName,
+              emailVerified: user.emailVerified,
+            })
+          );
+          setLoading(false);
+          navigate('/', { replace: true });
+        })
+        .catch((error) => {
+          setLoading(false);
+          alert(`${error.code} ${error.message}`);
+        });
     }
-
   }
 
   return (
     <div className="h-screen  flex flex-col">
+      {loading ? <Loader /> : null}
       <div className="px-14 py-8 justify-start">
         <img className="h-7" src={img} alt="logo" />
       </div>
